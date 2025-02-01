@@ -6,7 +6,7 @@ class SharedResource {
     private final int CAPACITY = 5;
     private final Object lock = new Object();
 
-    // Producer method
+ 
     public void produce(int value) throws InterruptedException {
         synchronized (lock) {
             while (queue.size() == CAPACITY) {
@@ -15,11 +15,11 @@ class SharedResource {
             }
             queue.add(value);
             System.out.println("Produced: " + value);
-            lock.notifyAll(); // Notify consumers
+            lock.notifyAll(); 
         }
     }
 
-    // Consumer method
+
     public int consume() throws InterruptedException {
         synchronized (lock) {
             while (queue.isEmpty()) {
@@ -34,7 +34,7 @@ class SharedResource {
     }
 }
 
-// Producer Thread
+
 class Producer extends Thread {
     private SharedResource resource;
 
@@ -56,7 +56,7 @@ class Producer extends Thread {
     }
 }
 
-// Consumer Thread
+
 class Consumer extends Thread {
     private SharedResource resource;
 
@@ -76,7 +76,7 @@ class Consumer extends Thread {
     }
 }
 
-// Deadlock Example
+
 class Deadlock {
     private final Object lock1 = new Object();
     private final Object lock2 = new Object();
@@ -130,7 +130,6 @@ public class MultithreadingExample {
         producer.start();
         consumer.start();
 
-        // Deadlock demonstration
         Deadlock deadlock = new Deadlock();
         Thread t1 = new Thread(deadlock::method1);
         Thread t2 = new Thread(deadlock::method2);
@@ -138,7 +137,7 @@ public class MultithreadingExample {
         t1.start();
         t2.start();
 
-        // Callable & Future Example
+      
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Long> future = executor.submit(new FactorialTask(10));
 
